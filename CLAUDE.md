@@ -36,7 +36,7 @@ The user explicitly asked: **don't just lecture, walk me through it step by step
 | Layer | Lesson file | Topic |
 |-------|-------------|-------|
 | 0 | `labs/layer-0-onboarding.md` | Placement & onboarding (required on first session) |
-| 1 | `labs/layer-1-cli.md` | CLI core & sessions (beginner-friendly) |
+| 1 | `labs/layer-1-cli.md` | CLI core & sessions (beginner-friendly) — includes §1.5 slash-command tour |
 | 2 | `labs/layer-2-harness.md` | Harness config |
 | 3 | `labs/layer-3-mcp.md` | MCP integration |
 | 4 | `labs/layer-4-agents.md` | Multi-agent orchestration (within one instance) |
