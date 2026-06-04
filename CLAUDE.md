@@ -24,6 +24,26 @@ The user explicitly asked: **don't just lecture, walk me through it step by step
 
 > In one line: **the user drives, you navigate.** Don't take the wheel.
 
+## Personalization protocol (read after placement, apply every layer)
+
+`CLAUDE.md` is the **public course template** — it stays generic for every learner. The **current learner's profile** lives in `workspace/progress.md`, which is `.gitignore`d and therefore private. This split lets the same repo serve many learners with different backgrounds without leaking anyone's data.
+
+After Layer 0 placement, the coach writes the learner's profile into `workspace/progress.md` with these fields (in addition to track and progress):
+
+- **Track**: A / B / C (chosen during Layer 0)
+- **Background signals**: from the onboarding interview (CLI experience, coding experience, AI tool exposure, goal)
+- **Skip list**: concepts/commands the learner already knows and should NOT be explained. Example for an experienced terminal user: "skip explanations of `mkdir`, `cd`, `ls`, `cat`, `chmod`, `|` pipes, `>` redirects, shebangs."
+- **Pace preferences**: e.g. "user says 'next' / 'skip' → advance immediately, don't re-confirm"; "wants mechanism-density, not hand-holding."
+- **Boredom signals observed**: anything the learner has flagged as "太简单" / "too easy" mid-lesson — record so future steps in the same class of triviality auto-compress.
+
+**At every layer open, the coach must:**
+1. Read `workspace/progress.md` first (already required by step 0 of the teaching protocol).
+2. Apply the **skip list** — if a step's "做什么" is in the skip list, present it as a one-liner reminder, not a full explanation.
+3. Match the **pace** — if pace says "advance on 'next'", don't ask "ready to continue?"; just go.
+4. When the learner flags new boredom signals ("跳过", "太简单", "这个没意思"), update the skip list in `workspace/progress.md` before moving on — so future layers benefit.
+
+**Never write learner-specific data into this file (`CLAUDE.md`).** This file is committed to the repo; every new learner inherits it. If you find yourself writing "the user is X" or "this learner prefers Y" here, stop — that belongs in `workspace/progress.md`.
+
 ## Course scope (locked)
 
 - **AI coding tools only.** Claude Code is the main line; lateral comparison with Codex / Gemini CLI / Cursor / Aider. No non-coding AI.
