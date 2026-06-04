@@ -17,7 +17,7 @@
 
 ## 前置检查
 
-- [ ] 完成层 1 / §1.5（知道斜杠命令只在交互模式生效，跑过 `/help` `/status` `/cost` `/context` 至少两个）
+- [ ] 完成层 1（知道交互模式 vs headless 的区别）
 - [ ] 有一个能写 markdown 的编辑器（VS Code / Cursor / vim 都行）
 - [ ] 工作区：`workspace/lab-02/`（教练帮你建）
 
@@ -72,8 +72,18 @@
 | `/release-notes` | 看本版本更新 | 升级后看一眼 |
 | `/bug` | 提 bug 给 Anthropic | 真遇到 bug |
 
-### 动手 §1
-进入 `claude` 跑 `/help`，把输出抄进 `workspace/lab-02/slash-inventory.md`，**用一列标注"我猜来源"**（built-in / skill / plugin / custom）。§4 我们会用 `/help` 的实际分组验证你猜得对不对。
+### 动手 §1（5 分钟，先建立直觉）
+
+进入 `claude` 交互模式后依次跑这 4 条，注意你看到了什么：
+
+1. **`/help`** —— 列你这一版（2.1.152）实际支持的全部命令
+2. **`/status`** —— 当前会话状态（模型、目录、permission 模式）
+3. **`/cost`** —— 这次会话累计花了多少
+4. **`/context`** —— context 占用条
+
+然后把 `/help` 的完整列表抄进 `workspace/lab-02/slash-inventory.md`，**用一列标注"我猜来源"**（built-in / skill / plugin / custom）——§4 会用实际机制验证你猜得对不对。
+
+> 关键事实（一行就够）：斜杠命令**只在交互模式生效**；在 shell 里直接打 `/cost` 没用。
 
 ---
 
