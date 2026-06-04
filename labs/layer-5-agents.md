@@ -1,4 +1,4 @@
-# 层4 — 多 Agent 协同（单实例内）
+# 层5 — 多 Agent 协同（单实例内）
 
 > 可移植性：**中**（worktree 声明式隔离、Tasks 系统 Codex 无直接对应，见 `docs/codex-adaptation.md`）
 
@@ -59,5 +59,5 @@
 
 ## 延伸（可选）
 
-- 用 CronCreate 建一个定时 agent（如每天总结改动）——这会接到层5
+- 用 CronCreate 建一个定时 agent（如每天总结改动）——这会接到层6
 - 设计一个"探索 agent 产出报告 → 实现 agent 据报告改代码"的两段式流水线

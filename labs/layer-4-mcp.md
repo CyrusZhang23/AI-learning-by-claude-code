@@ -1,4 +1,4 @@
-# 层3 — MCP 集成
+# 层4 — MCP 集成
 
 > 可移植性：**高**（Claude Code 与 Codex 均全量支持 MCP）
 
@@ -14,7 +14,7 @@
 ## 前置检查
 
 - [ ] Python 3.10+，能 `pip install`
-- [ ] 理解层2 的权限概念（MCP 工具也受权限管控）
+- [ ] 理解层3 的权限概念（MCP 工具也受权限管控）
 - [ ] 建好 `workspace/lab-03/` 工作区
 
 ## 分步教案
@@ -53,4 +53,4 @@
 ## 延伸（可选）
 
 - 给你的 server 加一个 resource（如把某个 markdown 暴露为可读资源）
-- 预习：层5 会把另一个 AI（Codex）当作 MCP server 来调用——这一层的 server 视角就是那时的基础
+- 预习：层6 会把另一个 AI（Codex）当作 MCP server 来调用——这一层的 server 视角就是那时的基础

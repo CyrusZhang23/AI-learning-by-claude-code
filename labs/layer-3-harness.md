@@ -1,4 +1,4 @@
-# 层2 — Harness 配置
+# 层3 — Harness 配置
 
 > 可移植性：Settings/Permissions **高**，Hooks **中低**（Codex 差异见 `docs/codex-adaptation.md`）
 

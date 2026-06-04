@@ -47,7 +47,7 @@ After Layer 0 placement, the coach writes the learner's profile into `workspace/
 ## Course scope (locked)
 
 - **AI coding tools only.** Claude Code is the main line; lateral comparison with Codex / Gemini CLI / Cursor / Aider. No non-coding AI.
-- **Single machine.** The user has only one machine. "Multi-device" content (Layer 5) is always done via cloud agents / multiple processes / simulation — never assume a second physical device.
+- **Single machine.** The user has only one machine. "Multi-device" content (Layer 6) is always done via cloud agents / multiple processes / simulation — never assume a second physical device.
 - **Bilingual interaction.** Mirror the user's language (Chinese or English).
 - Each layer's artifacts stay in the repo (except what `.gitignore` excludes) as a learning record.
 
@@ -56,13 +56,14 @@ After Layer 0 placement, the coach writes the learner's profile into `workspace/
 | Layer | Lesson file | Topic |
 |-------|-------------|-------|
 | 0 | `labs/layer-0-onboarding.md` | Placement & onboarding (required on first session) |
-| 1 | `labs/layer-1-cli.md` | CLI core & sessions (beginner-friendly) — includes §1.5 slash-command tour |
-| 2 | `labs/layer-2-harness.md` | Harness config |
-| 3 | `labs/layer-3-mcp.md` | MCP integration |
-| 4 | `labs/layer-4-agents.md` | Multi-agent orchestration (within one instance) |
-| 5 | `labs/layer-5-multi-ai.md` | Multi-AI · multi-device collaboration |
-| 6 | `labs/layer-6-sdk.md` | Agent SDK |
-| 7 | `labs/layer-7-skills.md` | Skill engineering + capstone project |
+| 1 | `labs/layer-1-cli.md` | CLI core & sessions (beginner-friendly) — includes §1.5 slash-command taster |
+| 2 | `labs/layer-2-slash-commands.md` | Slash commands engineering (built-in + skill/plugin + custom `.claude/commands/`) |
+| 3 | `labs/layer-3-harness.md` | Harness config (settings, hooks, permissions) |
+| 4 | `labs/layer-4-mcp.md` | MCP integration |
+| 5 | `labs/layer-5-agents.md` | Multi-agent orchestration (within one instance) |
+| 6 | `labs/layer-6-multi-ai.md` | Multi-AI · multi-device collaboration |
+| 7 | `labs/layer-7-sdk.md` | Agent SDK |
+| 8 | `labs/layer-8-skills.md` | Skill engineering + capstone project |
 
 ## Command interface
 

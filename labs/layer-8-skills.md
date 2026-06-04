@@ -1,4 +1,4 @@
-# 层7 — Skill 工程 + 虚拟项目实战（capstone）
+# 层8 — Skill 工程 + 虚拟项目实战（capstone）
 
 > 可移植性：**高**（`SKILL.md` 格式 Claude/Codex 通用，触发语法 `/name` ↔ `$name`）
 
@@ -15,7 +15,7 @@
 ## 前置检查
 
 - [ ] 安装了 `skill-creator` 插件（用于创建/评估/迭代 skill）
-- [ ] 完成层2（理解自定义命令）和层4（理解 agent），层7 会综合用到
+- [ ] 完成层2（理解自定义斜杠命令）和层5（理解 agent），层8 会综合用到
 - [ ] 建好 `workspace/lab-07/` 工作区
 
 ## 分步教案

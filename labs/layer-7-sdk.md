@@ -1,4 +1,4 @@
-# 层6 — Agent SDK
+# 层7 — Agent SDK
 
 > 可移植性：**高**（概念通用；Codex 换成 OpenAI Agents SDK，见 `docs/codex-adaptation.md`）
 
@@ -8,13 +8,13 @@
 
 ## 你将亲手产出
 
-- `workspace/lab-06/` —— 一个能跑的小型 orchestrator（用 SDK 实现层4 的"探索→实现"两段式编排）
+- `workspace/lab-07/` —— 一个能跑的小型 orchestrator（用 SDK 实现层5 的"探索→实现"两段式编排）
 
 ## 前置检查
 
 - [ ] 有 Anthropic API key（或对应 SDK 的 key），设好环境变量
 - [ ] Python 或 Node 环境（按你选的 SDK）
-- [ ] 完成层4（理解多 agent 编排的概念）
+- [ ] 完成层5（理解多 agent 编排的概念）
 
 ## 分步教案
 
@@ -30,11 +30,11 @@
 
 ### 步骤 3 — 多 agent + handoff
 - **做什么**：建两个 agent：`explorer`（只读，产出分析）和 `implementor`（据分析改代码），让 implementor 能 handoff 给 explorer。给一个真实任务（优化 workspace 里的脚本）。
-- **为什么**：handoff 是多 agent 协作的核心机制——一个 agent 把控制权和上下文交给另一个。对应层4 的子 agent 派发。
+- **为什么**：handoff 是多 agent 协作的核心机制——一个 agent 把控制权和上下文交给另一个。对应层5 的子 agent 派发。
 - **通过标准**：任务在两个 agent 间正确流转，最终产出改好的代码。
 
 ### 步骤 4 — 对照 CLI harness
-- **做什么**：把你这个 SDK orchestrator 和层4 用 CLI 做的同类编排对比，列出：CLI 帮你自动做了哪些事（权限弹窗、上下文压缩、子 agent 隔离），SDK 里需要你自己处理哪些。
+- **做什么**：把你这个 SDK orchestrator 和层5 用 CLI 做的同类编排对比，列出：CLI 帮你自动做了哪些事（权限弹窗、上下文压缩、子 agent 隔离），SDK 里需要你自己处理哪些。
 - **为什么**：这一步是整门课的"原理回望"——理解 CLI 是 SDK 之上的一层 harness。
 - **通过标准**：你能列出至少 3 件"CLI 自动做、SDK 要手动做"的事。
 
@@ -47,4 +47,4 @@
 ## 延伸（可选）
 
 - 给 orchestrator 加上下文管理（长任务自动压缩历史）
-- 用 SDK 复刻层5 的多工具流水线，通过 MCP 调用外部 AI
+- 用 SDK 复刻层6 的多工具流水线，通过 MCP 调用外部 AI
