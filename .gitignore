@@ -10,6 +10,14 @@ scratch/
 *.local.*
 .claude/settings.local.json
 
+# Claude Code 运行时 / 隐私数据——绝不进仓库
+# projects/ 含会话历史与 auto-memory；worktrees/ 是隔离工作树；lock 是调度锁；
+# agents/ 是层5 让学员亲手建的产出（不预置答案，学员自建才是教学意义）
+.claude/projects/
+.claude/worktrees/
+.claude/scheduled_tasks.lock
+.claude/agents/
+
 # 各层实验过程中生成的临时产物（教案本身保留在 labs/，这里排除运行产物）
 labs/**/output/
 labs/**/.runs/

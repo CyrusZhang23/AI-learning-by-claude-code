@@ -4,7 +4,7 @@
 
 > 一套**动手式**的 AI 编码工具系统课程。克隆下来，在仓库里打开 Claude Code，输入 `/lab`，就有一位 AI 教练**带你一步步做**——第一次上课会先摸底分班，之后每个功能都让你亲手跑通，而不是看文档。
 
-聚焦 **AI 编码工具**（以 Claude Code 为主线，横向对比 Codex / Gemini CLI / Cursor / Aider）。课程含一节开课摸底（层0）+ 7 层由浅入深的实战：CLI、Harness 配置、MCP、多 Agent 协同、多 AI 协作、Agent SDK 和 Skill 工程。
+聚焦 **AI 编码工具**（以 Claude Code 为主线，横向对比 Codex / Gemini CLI / Cursor / Aider）。课程含一节开课摸底（层0）+ 8 层由浅入深的实战：CLI、斜杠命令工程、Harness 配置、MCP、多 Agent 协同、多 AI 协作、Agent SDK 和 Skill 工程。
 
 ## 这门课的特别之处
 
@@ -20,12 +20,13 @@
 |----|------|-------------|
 | 0 | 开课摸底与分班（第一次必做） | 你的专属学习路线 + 进度档案 |
 | 1 | CLI 核心与会话（零基础友好） | 命令手册 + headless 脚本 |
-| 2 | Harness 配置（Settings / 权限 / Hooks / 输出定制） | 一套 `.claude/settings.json` + hook 脚本 + 自定义 `/命令` |
-| 3 | MCP 集成 | 一个你自己写的 toy MCP server |
-| 4 | 多 Agent 协同（单实例内） | 编排实验记录 + worktree 分支产物 |
-| 5 | 多 AI · 多设备协同 | 多工具协作 pipeline + 交接约定 |
-| 6 | Agent SDK | 一个能跑的小型 orchestrator |
-| 7 | Skill 工程 + 虚拟项目实战 | 完整虚拟项目 + 可安装的自研 skill/plugin |
+| 2 | 斜杠命令工程（内置 + skill/插件 + 自定义） | 斜杠命令清单 + 你写的自定义 `/命令` |
+| 3 | Harness 配置（Settings / 权限 / Hooks / 输出定制） | 一套 `.claude/settings.json` + hook 脚本 |
+| 4 | MCP 集成 | 一个你自己写的 toy MCP server |
+| 5 | 多 Agent 协同（单实例内） | 编排实验记录 + worktree 分支产物 |
+| 6 | 多 AI · 多设备协同 | 多工具协作 pipeline + 交接约定 |
+| 7 | Agent SDK | 一个能跑的小型 orchestrator |
+| 8 | Skill 工程 + 虚拟项目实战（capstone） | 完整虚拟项目 + 可安装的自研 skill/plugin |
 
 ## 前置条件
 
@@ -81,9 +82,10 @@ codex
 │   ├── labs.md            # /labs 列出全部课程
 │   └── translate.md       # /translate 一键翻译当前教案
 ├── labs/                  # 分步教案
-│   └── layer-0…7-*.md     # 层0 摸底分班 + 层1–7 实验
+│   └── layer-0…8-*.md     # 层0 摸底分班 + 层1–8 实验
 └── docs/                  # 参考资料（设计/对照分析）
     ├── codex-adaptation.md
+    ├── cursor-adaptation.md
     ├── harness-frameworks.md
     └── skill-projects.md
 ```

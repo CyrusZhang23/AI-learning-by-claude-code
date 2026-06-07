@@ -4,7 +4,7 @@
 
 > A **hands-on** course for mastering AI coding tools. Clone it, open Claude Code inside the repo, type `/lab`, and an AI coach will **walk you through every step**. Your first session starts with a quick placement quiz; after that, you run every feature yourself instead of just reading docs.
 
-Focused on **AI coding tools** (Claude Code as the main line, with lateral comparison to Codex / Gemini CLI / Cursor / Aider), the course has 8 layers (0–7) that take you from CLI basics through Harness config, MCP, multi-agent orchestration, multi-AI collaboration, the Agent SDK, and Skill engineering.
+Focused on **AI coding tools** (Claude Code as the main line, with lateral comparison to Codex / Gemini CLI / Cursor / Aider), the course has a Layer-0 placement plus 8 hands-on layers (1–8) that take you from CLI basics through slash-command engineering, Harness config, MCP, multi-agent orchestration, multi-AI collaboration, the Agent SDK, and Skill engineering.
 
 ## What makes this course different
 
@@ -20,12 +20,13 @@ Focused on **AI coding tools** (Claude Code as the main line, with lateral compa
 |-------|-------|-------------------|
 | 0 | Placement & onboarding (first time only) | Your personalized track + a progress file |
 | 1 | CLI core & sessions (beginner-friendly) | Command cheatsheet + headless scripts |
-| 2 | Harness config (settings / permissions / hooks / output) | A `.claude/settings.json` + hook scripts + a custom `/command` |
-| 3 | MCP integration | A toy MCP server you write yourself |
-| 4 | Multi-agent orchestration (within one instance) | Orchestration log + a worktree branch artifact |
-| 5 | Multi-AI · multi-device collaboration | A multi-tool pipeline + a handoff contract |
-| 6 | Agent SDK | A small working orchestrator |
-| 7 | Skill engineering + capstone project | A full toy project + an installable custom skill/plugin |
+| 2 | Slash-command engineering (built-in + skill/plugin + custom) | A slash-command inventory + your own custom `/command` |
+| 3 | Harness config (settings / permissions / hooks / output) | A `.claude/settings.json` + hook scripts |
+| 4 | MCP integration | A toy MCP server you write yourself |
+| 5 | Multi-agent orchestration (within one instance) | Orchestration log + a worktree branch artifact |
+| 6 | Multi-AI · multi-device collaboration | A multi-tool pipeline + a handoff contract |
+| 7 | Agent SDK | A small working orchestrator |
+| 8 | Skill engineering + capstone project | A full toy project + an installable custom skill/plugin |
 
 ## Prerequisites
 
@@ -81,9 +82,10 @@ The course defaults to **Chinese**. For English:
 │   ├── labs.md            # /labs lists all layers
 │   └── translate.md       # /translate one-click translation of the current lesson
 ├── labs/                  # Step-by-step lesson scripts
-│   └── layer-0…7-*.md     # Layer 0 placement + Layers 1–7 labs
+│   └── layer-0…8-*.md     # Layer 0 placement + Layers 1–8 labs
 └── docs/                  # Reference material (design / comparative analysis)
     ├── codex-adaptation.md
+    ├── cursor-adaptation.md
     ├── harness-frameworks.md
     └── skill-projects.md
 ```
