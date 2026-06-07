@@ -13,7 +13,7 @@
 
 - `workspace/lab-02/slash-inventory.md` —— 本机斜杠命令清单（含来源：built-in / skill / plugin / custom）
 - `.claude/commands/go.md` —— 你写的第一个自定义命令 `/go`：跑 git diff → 让 AI 总结 → 提示是否要 commit
-- `.claude/commands/changelog.md` —— 第二个，带参数版：`/changelog v1.2..v1.3` 生成两个 tag 之间的更新说明
+- `.claude/commands/explain.md` —— 第二个，带参数版：`/explain <术语>` 用一段话解释一个技术术语
 
 ---
 
@@ -78,9 +78,9 @@
 | `/permissions` | 工具权限（哪些命令可自动跑） |
 | `/login` `/logout` | 切账号 |
 | `/vim` | 切 vim 键位 |
-| `/fast` | 切 fast mode (Opus 4.7,输出更快) | 你已经在用 |
-| `/effort` | 调当前模型的 effort level (low/med/high/xhigh) | 同模型也能"档位切换",成本/质量旋钮 |
-| `/focus` | 只显示你 prompt + 工具摘要 + 最终回复 | 屏幕清爽,跟 verbose 反着的 |
+| `/fast` | 切 fast mode（Opus 4.7,输出更快）——你已经在用 |
+| `/effort` | 调当前模型的 effort level（low/med/high/xhigh）——同模型也能"档位切换",成本/质量旋钮 |
+| `/focus` | 只显示你 prompt + 工具摘要 + 最终回复——屏幕清爽,跟 verbose 反着的 |
 
 ### 1.5 高级能力入口（后续层会重点用）
 | 命令 | 干啥 | 对应层 |
@@ -99,7 +99,7 @@
 
 进入 `claude` 交互模式后依次跑这 4 条，注意你看到了什么：
 
-1. **`/help`** —— 列你这一版（2.1.152）实际支持的全部命令
+1. **`/help`** —— 列你这一版实际支持的全部命令
 2. **`/status`** —— 当前会话状态（模型、目录、permission 模式）
 3. **`/cost`** —— 这次会话累计花了多少
 4. **`/context`** —— context 占用条
@@ -276,7 +276,7 @@ argument-hint: <术语>
 
 - ☑ 跑过 `/help`，能说出本机至少 5 个内置命令的用途
 - ☑ 知道斜杠命令的三种来源（内置 / skill·plugin / 自定义）和它们的差别
-- ☑ `.claude/commands/go.md` 和 `.claude/commands/changelog.md` 都能跑、产出合理
+- ☑ `.claude/commands/go.md` 和 `.claude/commands/explain.md` 都能跑、产出合理
 - ☑ 能讲清 `allowed-tools` / `argument-hint` / `!` shell 嵌入 / `$1` 参数 这 4 个机制点
 - ☑ 能说出"`/go` 会触发哪个 hook"（→ 层 3 的伏笔）
 - ☑ 🎯 能复述本层那句话：三种来源 + "skill 可被 LLM 主动调用 vs commands 只能显式 /"
