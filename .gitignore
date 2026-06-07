@@ -1,4 +1,9 @@
+# 课程作者标记——只存在于作者机器，Layer 0 据此跳过学员本地化。永不进仓库
+.course-author
+
 # 个人学习记录 / 实验产生的工作区——不进公开仓库
+# 注意：学员首次运行时 Layer 0 会把下面这行 workspace/ 删掉（解除忽略），
+# 让 git 教学（worktree 隔离等）能作用在 workspace 上；作者机器保留忽略。
 workspace/
 scratch/
 *.local

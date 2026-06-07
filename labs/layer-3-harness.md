@@ -2,6 +2,8 @@
 
 > 可移植性：Settings/Permissions **高**，Hooks **中低**（Codex 差异见 `docs/codex-adaptation.md`）
 
+> 🎯 **本层一句话**：harness 三件套 —— settings 三层覆盖（local > project > user）、permissions 黑白名单、hooks 任意脚本；hook 不靠环境变量，**靠 stdin 的 JSON 拿上下文、靠退出码表态**（PreToolUse 非零 = 否决）。
+
 ## 目标
 
 掌控 Claude Code 的"外壳"（harness）：配置的三层覆盖、权限边界、生命周期 hooks、以及输出与命令定制。学完你能把 Claude Code 调成符合自己安全和工作流要求的样子。
@@ -15,7 +17,7 @@
 ## 前置检查
 
 - [ ] 知道 `~/.claude/`（用户级）和项目 `.claude/`（项目级）两个位置
-- [ ] 建好 `workspace/lab-02/` 工作区
+- [ ] 建好 `workspace/lab-03/` 工作区
 - [ ] （hook 步骤用）能写简单 shell 脚本
 
 ## 分步教案
@@ -36,10 +38,53 @@
 
 ### 2C — Hooks 生命周期
 
+> **先搞懂 hook 是什么（不理解就别往下做）**
+>
+> 一句话：**hook 是你在 Claude 工作流程的特定时刻"插一脚"执行自己脚本的机会。**
+>
+> Claude 跑一轮任务像一条流水线：`你发消息 → Claude 想 → 调工具 → 工具跑完 → 回答 → 回合结束`。默认你只能看不能插手。**hook 就是这条线上预先钻好的几个孔**，每个孔对应一个时刻；你往孔里塞一段 shell 脚本，流水线走到那个时刻就自动停下来先跑你的脚本，跑完再继续。
+>
+> | 孔的位置 | 事件名 | 你能干什么 |
+> |---|---|---|
+> | 你的输入刚提交 | `UserPromptSubmit` | 改写/检查 prompt |
+> | 要调工具、还没调 | `PreToolUse` | **拦住它**（退出码非零=取消） |
+> | 工具刚跑完 | `PostToolUse` | 记日志/审计 |
+> | 整个回合结束 | `Stop` | 发通知 |
+>
+> **三个本质特征：**
+> 1. **自动触发**——配在 `settings.json` 里一次，之后每次到点 harness 自己调，不用你喊。
+> 2. **就是普通 shell 脚本**——`command` 就是一行 bash，没有魔法；能跑 `jq`/`osascript`/你自己的 python。
+> 3. **靠 stdin 拿上下文 + 靠退出码表态**——harness 把"现在发生了什么"以 **JSON 从 stdin** 喂进来（工具名/参数/输出都在里面）；你用退出码回应（PreToolUse 非零=否决）。
+>
+> **为什么需要它**：权限 `deny` 只能黑名单字符串匹配，死板；hook 是任意脚本，能读参数内容、查文件再决定——这是 Claude Code 可定制性的核心。
+
 #### 步骤 3 — PostToolUse 审计日志
-- **做什么**：在 settings 配一个 PostToolUse hook，命令是把工具名和时间追加到 `workspace/lab-02/audit.log`。触发几次工具调用，看日志。
+- **做什么**：在 settings 配一个 PostToolUse hook，命令是把工具名和时间追加到 `audit.log`。触发几次工具调用，看日志。
 - **为什么**：PostToolUse 在工具执行后触发，最适合审计/记录。
-- **通过标准**：每次工具调用后 `audit.log` 都新增一行。
+- **通过标准**：每次工具调用后 `audit.log` 都新增一行，**且工具名不为空**。
+
+可用的正确写法（matcher 空串 = 匹配所有工具）：
+```json
+"PostToolUse": [
+  {
+    "matcher": "",
+    "hooks": [
+      { "type": "command",
+        "command": "echo \"$(date '+%H:%M:%S') $(cat | jq -r '.tool_name')\" >> ~/tmp/lab2-sandbox/audit.log" }
+    ]
+  }
+]
+```
+
+> **两个真实踩过的坑（▶ 动手前先让学员预测）**
+>
+> 配 hook 前先抛两个问题给学员，让他先猜、再揭晓——这两个坑都是直觉会答错的：
+>
+> **预测题 1**："hook 脚本怎么知道刚才调的是哪个工具？你觉得工具名是放在某个环境变量里（比如 `$CLAUDE_TOOL_NAME`），还是别的渠道？"
+> → 揭晓：**不是环境变量**。Claude Code **不用环境变量传上下文**——所有 hook 数据走 **stdin JSON**。正确做法是 `cat | jq -r '.tool_name'`。PostToolUse 的 payload 字段：`tool_name` / `tool_input` / `tool_response`。
+>
+> **预测题 2**："如果我先 `INPUT=$(cat)` 把 stdin 存进变量，再 `echo $INPUT | jq ...`，能正常解析吗？" 多数人答"能"。
+> → 揭晓：**会失败**。工具输出（如 `ls` 的多行结果）带换行，`echo $INPUT`（无引号）把换行折叠成空格，JSON 结构被打碎，jq 解析出 null。**直接 `cat | jq` 流式处理 stdin**，不经过变量，就没这问题。（若一定要存变量，必须 `printf '%s' "$INPUT" | jq` 并全程加引号。）
 
 #### 步骤 4 — PreToolUse 拦截
 - **做什么**：配一个 PreToolUse hook，匹配 Bash 且参数含 `rm -rf` 时返回非零退出码以**阻断**该调用。测试它确实拦截。
@@ -63,12 +108,19 @@
 - **为什么**：补全"输出层"的定制能力。
 - **通过标准**：你能说出 output-style 和 statusline 各改变了什么。
 
+### 步骤 8 — 全景扫描（收尾）[核心]
+- **做什么**：教练带学员对照 hook 的**六个触发点全集**（`UserPromptSubmit` / `PreToolUse` / `PostToolUse` / `Notification` / `Stop` / `SubagentStop`），逐个问"这层我们配过哪几个？剩下的是干啥的？"——本层只动手了 4 个，`Notification` 和 `SubagentStop` 没碰，明确它们存在、各自时机。再扫一眼 `settings.json` 里还有哪些没用到的顶层键（如 `env`、`statusLine`）。
+- **为什么**：建立"hook 全集 + settings 全貌"的索引感，知道本层只是六分之四。
+
+> **🧪 留个回归夹具**：把本层的 `.claude/settings.json`（三个 hook + permission 规则）连同一行验证命令留在 sandbox 里——以后改教案 / 升级版本时，重跑一次就能确认 hook 仍按预期触发（PostToolUse 写日志、PreToolUse 挡 `rm -rf`）。这是"教案可回归"的最小单位。
+
 ## 完成标志
 
 - settings 三层覆盖你能亲手演示一次
 - 三个 hook（拦截/审计/通知）都生效
 - 你有了一个能用的自定义 slash 命令
 - 你能讲清"权限规则 vs PreToolUse hook"的区别与各自适用场景
+- 🎯 能复述本层那句话：harness 三件套 + "hook 靠 stdin JSON 拿上下文、靠退出码表态"
 
 ## 延伸（可选）
 
