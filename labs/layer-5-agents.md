@@ -101,18 +101,21 @@
 
 > **⚠️ 真实坑（▶ 先让学员预测）：worktree 只能隔离 git _跟踪_ 的文件**。
 >
-> 派 worktree agent 前先问学员——"如果我让这个隔离 agent 去改 `workspace/` 下一个文件（`workspace/` 是 gitignored 的），它会改在独立工作树里、不碰我主区吗？" 多数人答"会，这就是隔离的意义"。**揭晓：不会**，改动会落到你主工作区，隔离是假象。原因往下看：
-> `git worktree` 的新工作树**只包含已提交(tracked)的文件**；gitignored / 未跟踪的内容根本不进工作树。所以如果你让 agent 改一个 **gitignored 文件**（比如本课程 `workspace/` 就是 gitignore 的学习沙盒）：
-> - 隔离工作树里**没有那个文件**（它不在任何 commit 里）
-> - agent 找不到，就改到了**唯一存在的那份——主工作区的**
-> - 改完隔离树「tracked 文件无变化」，harness 把空工作树自动清理 → **看起来用了隔离，实际改动落在主区，隔离是假象**
+> 派 worktree agent 前先问学员——"如果我让这个隔离 agent 去改 `workspace/` 下一个文件（`workspace/` 是 gitignored 的），它改到哪里去？" 多数人答"改在独立工作树里，这就是隔离的意义"。**揭晓（本课实测过）：它既改不到你主区那份、也留不下改动——改动会凭空蒸发。** 原因往下看：
+> `git worktree` 的新工作树**只包含已提交(tracked)的文件**；gitignored / 未跟踪的内容根本不进工作树。所以你让 agent 改一个 **gitignored 文件**（比如本课程 `workspace/` 就是 gitignore 的学习沙盒）时：
+> - 隔离工作树里**根本没有那个文件，连 `workspace/` 目录都没有**（它不在任何 commit 里）
+> - agent 在隔离树里 `cat` 不到，于是**在隔离树自己的路径下凭空新建一份**（`.claude/worktrees/agent-xxx/workspace/...`），改的是这个新建的副本——**不是你主区那份**
+> - 这份副本本身也是 gitignored 的，对 worktree 来说「tracked 文件无变化」→ harness 把"无改动"的 worktree 自动清理 → **副本随之删除，改动蒸发；你主区的原文件从头到尾纹丝未动**
+> - 净效果：你以为派了个 agent 去改文件，结果**主区没变、隔离树也没了，活白干**
 >
 > | 想隔离的内容 | worktree 有效吗 |
 > |---|---|
 > | 已提交的源码(tracked) | ✅ 有效，给独立分支 |
-> | gitignored / 未跟踪文件 | ❌ 无效，改动落主区 |
+> | gitignored / 未跟踪文件 | ❌ 无意义，agent 碰不到真文件，改动落在隔离树副本里随清理蒸发 |
 >
-> **审查者判断**：用 worktree 隔离前先问一句——「这个文件 git 跟踪了吗？」没跟踪，隔离就是假的。要演示真隔离，必须挑一个 **tracked 文件**。
+> **审查者判断**：用 worktree 隔离前先问一句——「这个文件 git 跟踪了吗？」没跟踪，隔离对它就是空转。要让 worktree agent 真正干活，必须让它改 **tracked 文件**。
+>
+> *（这条坑本课用一个 gitignored 探针文件 + 一个 worktree agent 实测验证过：主区文件未被触碰，agent 的写入落在 `.claude/worktrees/` 下随 worktree 清理而消失。）*
 
 ### 步骤 6 — Tasks 系统
 - **做什么**：用 TaskCreate 把一个三步任务（探索 → 修改 → 验证）建成任务列表，逐步 `in_progress` → `completed`，用 TaskList 查看进度。
@@ -125,7 +128,7 @@
 - **通过标准**：循环在达成完成条件后正确停止，产出符合预期。
 
 ### 步骤 8 — 全景扫描（收尾）[核心]
-- **做什么**：对照本层的能力面问学员——① subagent 类型全集（`Explore` / `Plan` / `general-purpose` / `claude-code-guide` / 自定义）各自定位；② agent frontmatter 字段全集里我们只用了 `tools` / `skills`，还有 `model` / `permissionMode` / `isolation` / `background` 等没碰；③ Tasks 系统除 Create/Update/List 还有 Get/Output/Stop。明确"这层学了哪些、留了哪些"。
+- **做什么**：对照本层的能力面问学员——① subagent 类型全集（`Explore` / `Plan` / `general-purpose` / `claude-code-guide` / 自定义）各自定位；② agent frontmatter 字段全集里我们只用了 `tools` / `skills`，还有 `model` / `permissionMode` / `isolation` / `background` 等没碰；③ Tasks 系统除 Create/Update/List 还有 Get/Output/Stop。明确"这层学了哪些、留了哪些"。**最后把本层的编排实验记录整理进 `workspace/lab-05/orchestration.md`**（教练代写）：单发/并行/隔离三种 agent 形态各自的结论、worktree 隔离的真假坑、Tasks 轨迹——作为本层产出留存。
 - **为什么**：agent 的可配置面很大，建立全景索引避免以为"会派 agent"就是全部。
 
 > **🧪 留个回归夹具**：把步骤 7 的两段式流水线（docstring-auditor 只读自检闸门 → general-purpose writer 补 → 复审清零停止）连同 `lab-05/text_utils.py` 留作夹具——它同时验证"自检闸门独立于干活方"这条铁律。改教案后重跑一遍，确认循环仍能在达标时正确停止。

@@ -12,7 +12,7 @@
 ## 你将亲手产出
 
 - `workspace/lab-02/slash-inventory.md` —— 本机斜杠命令清单（含来源：built-in / skill / plugin / custom）
-- `.claude/commands/go.md` —— 你写的第一个自定义命令 `/go`：跑 git diff → 让 AI 总结 → 提示是否要 commit
+- `.claude/commands/go.md` —— 你写的第一个自定义命令 `/go`：注入环境快照（时间/目录/Python 版本），让 AI 写一句今日开工摘要
 - `.claude/commands/explain.md` —— 第二个，带参数版：`/explain <术语>` 用一段话解释一个技术术语
 
 ---

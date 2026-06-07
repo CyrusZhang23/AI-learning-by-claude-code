@@ -46,7 +46,7 @@
 - **通过标准**：迭代后，skill 在你的测试场景里触发正确、产出可用。
 
 ### 步骤 5 — 打包成 plugin 并安装
-- **做什么**：把 skill 按 plugin 结构打包（`.claude-plugin/plugin.json` → `marketplace.json`），`claude plugin marketplace add <本地路径>` + `plugin install <名>@<market>`，在**仓库外的干净目录**重启会话验证。
+- **做什么**：把 skill 按 plugin 结构打包（`.claude-plugin/plugin.json` → `marketplace.json`），`claude plugin marketplace add <本地路径>` + `claude plugin install <名>@<market>`，在**仓库外的干净目录**重启会话验证。
 - **▶ 让学员先预测（description 契约的终极验收）**：在干净环境里，问学员——"我**不打 `/你的skill`**，而是用自然语言说'帮我把这些碎片聚合成发版说明'，skill 会被唤起吗？" **揭晓**：会——只要 `description` 写准，模型看到关键词就主动调用。这就是步骤 2 那句"description 是触发契约不是简介"的终极证明（对比 `.claude/commands/` 只能显式 `/`，呼应层 2）。再问一题考 token 经济学："plugin 装上后，`description` 和正文哪个一直占着 context、哪个按需才加载？"（答案：description 是 always-on 常驻税~160 token，正文 on-invoke 按需~730——所以 description 要短而准。）
 - **为什么**：plugin 是 skill 的分发单元；自然语言触发成功 = description 契约写对了。
 - **通过标准**：在本仓库之外的目录里，**不打斜杠命令、用自然语言**也能唤起 skill 并正常工作。
@@ -70,7 +70,7 @@
 - skill 带内嵌工具、能被打包成 plugin、能在干净环境**用自然语言**触发
 - 你能讲清"一个好 skill 的 description 为什么是成败关键"
 - 🎯 能复述本层那句话：description 是触发契约不是简介；确定性给脚本、判断给模型；分发三层
-- **毕业**：你已走完从 CLI 到 Skill 工程的全部 8 层（0–8），能复述每层的一句话主线
+- **毕业**：你已走完从 CLI 到 Skill 工程的全部 9 层（0–8，含摸底层 0），能复述每层的一句话主线
 
 ## 延伸（可选）
 
