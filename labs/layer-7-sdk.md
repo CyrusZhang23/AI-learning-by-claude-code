@@ -14,7 +14,9 @@
 
 ## 前置检查
 
-> **这一层默认走订阅态，不需要单独 API key。** 各家官方 SDK 本质都是"包装自家 CLI 的库"——在底层 spawn 一个 CLI 子进程，复用你已经登录的订阅态。所以"裸调 API、单独付费 key"在本课里只作对照，不作默认门槛。
+> **这一层默认走订阅态，不需要单独 API key。** 各家官方 SDK 本质都是"包装自家 CLI 的库"——`claude-agent-sdk` 就是"把 Claude Code 当库用"（官方原话 "Claude Code as a library"），底层 spawn 一个**自带的** CLI binary（TS SDK 直接 bundle 了 native Claude Code binary），复用你已经登录的订阅态。所以"裸调 API、单独付费 key"在本课里只作对照，不作默认门槛。
+>
+> ⚠️ **订阅态的适用边界（官方约束，核实于官方文档）**：订阅态借道已登录 CLI，仅适用于**你自己本机学习/自用**。**一旦要把 agent 做成产品分发给别人用，必须切 API key**——官方明确不允许第三方产品用 claude.ai/订阅登录（"does not allow third party developers to offer claude.ai login... including agents built on the Claude Agent SDK"）。另注：**2026-06-15 起**，订阅计划上跑 Agent SDK / `claude -p` 会从一个**独立的月度 Agent SDK credit** 扣，与交互额度分开。
 
 - [ ] **订阅态（默认）**：`claude` CLI 已登录（`claude --version` 能跑即可）。SDK 用 `claude-agent-sdk`（Python，建议 `uv add claude-agent-sdk`）。
   - Codex 学员对等：`codex` CLI 已 `codex login`（ChatGPT 登录态），SDK 用 `@openai/codex-sdk`（TS），headless 入口 `codex exec`。
