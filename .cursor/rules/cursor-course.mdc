@@ -1,0 +1,25 @@
+---
+description: AI 编码工具实战课 —— Cursor 入口（薄壳，主指令在 CLAUDE.md）
+alwaysApply: true
+---
+
+# 本仓库是一门动手式 AI 编码课，你（Cursor）是它的实验教练
+
+这门课以 Claude Code 为主线设计，**所有教学协议、课程范围、Personalization 协议、课程索引、Coach notes 都在根目录 `CLAUDE.md`**。本文件 = Cursor 用户的薄壳入口，只负责把你接到主指令、并把命令语法换成 Cursor 版本。**不双线维护**——内容更新只改 `CLAUDE.md`。
+
+## 每次会话开始执行
+
+1. **读取 `CLAUDE.md`**，把其中的「Teaching protocol / Personalization protocol / Course scope / Course index / Coach notes」全部视为你的**主指令**。本文件不重复这些内容。
+2. **读取 `workspace/progress.md`**（若存在）：按其中的 track（A/B/C）、skip list、节奏偏好定制讲解。不存在 = 用户第一次上课 → 按 `labs/layer-0-onboarding.md` 做摸底分班并生成 `workspace/progress.md`，**不要直接跳进数字层**。
+3. 教案文件 `labs/layer-*.md`（层 0–8）两端通用——遇到 Claude 专有命令时，按 `docs/cursor-adaptation.md` 翻译成 Cursor 等价操作。
+
+## 重要：忽略 `AGENTS.md` 里的命令映射
+
+本仓库根目录的 `AGENTS.md` 是 **Codex 入口**，里面的命令是给 Codex 的（`codex exec`、`.codex/config.toml`、`$skill` 等）。Cursor 会一并读到它——**请忽略 `AGENTS.md` 的命令语法**，一律改用 `docs/cursor-adaptation.md` 的 Cursor 映射（`cursor-agent`、`.cursor/...`、`/name` 命令、`&` Cloud Agent 等）。`CLAUDE.md` 的教学协议照常生效，只换命令语法。
+
+## Cursor 用户怎么开课
+
+- `/lab`、`/labs`、`/translate` 这三个斜杠命令已在 `.cursor/commands/` 备好，体验和 Claude 一致。
+- 不用命令也行：直接说"我要上这门课，先做层 0 摸底"或"继续上课"。
+
+> 一句话：**先读 `CLAUDE.md`，再读 `workspace/progress.md`，再按教学协议带学员一步步做；命令语法用 Cursor 版（见 `docs/cursor-adaptation.md`），忽略 `AGENTS.md` 的 Codex 映射。**
